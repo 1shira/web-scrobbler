@@ -17,15 +17,25 @@ if ('cleanup' in window && typeof window.cleanup === 'function') {
 }
 
 (window as unknown as { cleanup: () => void }).cleanup = (() => {
-	const handler = {
-		get: (target: any, prop: string, receiver: unknown) => target[prop],
-		set: (obj: any, prop: string, value: unknown): boolean => {
-			obj[prop] = value;
+	type Indexable = Record<string | symbol, unknown>;
+
+	const handler: ProxyHandler<MediaSession> = {
+		get: (target: MediaSession, prop: string | symbol): unknown => {
+			return (target as unknown as Indexable)[prop];
+		},
+		set: (
+			target: MediaSession,
+			prop: string | symbol,
+			value: unknown,
+		): boolean => {
+			(target as unknown as Indexable)[prop] = value;
 			sendData();
 			return true;
 		},
 	};
+
 	const proxy = new Proxy(navigator.mediaSession, handler);
+
 	Object.defineProperty(navigator, 'mediaSession', {
 		get() {
 			return proxy;
@@ -33,17 +43,21 @@ if ('cleanup' in window && typeof window.cleanup === 'function') {
 		configurable: true,
 	});
 
-	function sendData() {
+	function sendData(): void {
+		const metadata = proxy.metadata;
+
 		window.postMessage(
 			{
 				sender: 'web-scrobbler',
 				playbackState: proxy.playbackState,
-				metadata: {
-					title: proxy.metadata.title,
-					artist: proxy.metadata.artist,
-					artwork: proxy.metadata.artwork,
-					album: proxy.metadata.album,
-				},
+				metadata: metadata
+					? {
+							title: metadata.title,
+							artist: metadata.artist,
+							artwork: metadata.artwork,
+							album: metadata.album,
+						}
+					: null,
 			},
 			'*',
 		);
@@ -52,9 +66,13 @@ if ('cleanup' in window && typeof window.cleanup === 'function') {
 	navigator.mediaSession.metadata = new MediaMetadata();
 
 	return () => {
-		// remove the subscribers added by this extension.
-		handler.set = (obj: any, prop: string, value: unknown): boolean => {
-			obj[prop] = value;
+		// Remove listener: restore handler.set without `any`
+		handler.set = (
+			target: MediaSession,
+			prop: string | symbol,
+			value: unknown,
+		): boolean => {
+			(target as unknown as Indexable)[prop] = value;
 			return true;
 		};
 	};
