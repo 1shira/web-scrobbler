@@ -17,43 +17,45 @@ if ('cleanup' in window && typeof window.cleanup === 'function') {
 }
 
 (window as unknown as { cleanup: () => void }).cleanup = (() => {
-	const sendData = () => {
-		// added delay due to hitting race conditions, unclear where they occur
-		setTimeout(
-			() =>
-				window.postMessage(
-					{
-						sender: 'web-scrobbler',
-						playbackState: navigator.mediaSession.playbackState,
-						metadata: {
-							title: navigator.mediaSession.metadata?.title,
-							artist: navigator.mediaSession.metadata?.artist,
-							artwork: navigator.mediaSession.metadata?.artwork,
-							album: navigator.mediaSession.metadata?.album,
-						},
-					},
-					'*',
-				),
-			10,
-		);
+	const handler = {
+		get: (target: any, prop: string, receiver: unknown) => target[prop],
+		set: (obj: any, prop: string, value: unknown): boolean => {
+			obj[prop] = value;
+			sendData();
+			return true;
+		},
 	};
-	const playPauseButton = document.getElementById('play-pause-button');
-	const SongInfo = document.querySelector('.content-info-wrapper');
-
-	const observer = new MutationObserver(sendData);
-
-	observer.observe(playPauseButton as Node, {
-		attributes: true,
+	const proxy = new Proxy(navigator.mediaSession, handler);
+	Object.defineProperty(navigator, 'mediaSession', {
+		get() {
+			return proxy;
+		},
+		configurable: true,
 	});
 
-	observer.observe(SongInfo as Node, {
-		attributes: true,
-		subtree: true,
-	});
+	function sendData() {
+		window.postMessage(
+			{
+				sender: 'web-scrobbler',
+				playbackState: proxy.playbackState,
+				metadata: {
+					title: proxy.metadata.title,
+					artist: proxy.metadata.artist,
+					artwork: proxy.metadata.artwork,
+					album: proxy.metadata.album,
+				},
+			},
+			'*',
+		);
+	}
+
+	navigator.mediaSession.metadata = new MediaMetadata();
 
 	return () => {
-		// remove the subscribers added by this extension from the array.
-		// we dont have a confirmed reference to it so we have to check all of them.
-		observer.disconnect();
+		// remove the subscribers added by this extension.
+		handler.set = (obj: any, prop: string, value: unknown): boolean => {
+			obj[prop] = value;
+			return true;
+		};
 	};
 })();
