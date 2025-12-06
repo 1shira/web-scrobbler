@@ -96,8 +96,14 @@ export default <ConnectorMeta[]>[
 		id: 'amazon-alexa',
 	},
 	{
+		label: 'Radio Vas3k Club',
+		matches: ['https://radio.vas3k.club/*'],
+		js: 'vas3kradio.js',
+		id: 'vas3kradio',
+	},
+	{
 		label: 'VK',
-		matches: ['*://vk.com/*'],
+		matches: ['*://vk.ru/*', '*://vk.com/*'],
 		js: 'vk.js',
 		id: 'vk',
 	},
@@ -157,6 +163,12 @@ export default <ConnectorMeta[]>[
 		id: '8tracks',
 	},
 	{
+		label: 'SoGreatandPowerful',
+		matches: ['*://sogreatandpowerful.com/*'],
+		js: 'sogreatandpowerful.js',
+		id: 'sogreatandpowerful',
+	},
+	{
 		label: 'Radio Cidade',
 		matches: [
 			'*://radiocidade.fm/player/*',
@@ -202,6 +214,12 @@ export default <ConnectorMeta[]>[
 		matches: ['*://*/*/apps/subphonic/minisub/*'],
 		js: 'subphonic.js',
 		id: 'subphonic',
+	},
+	{
+		label: 'Nextcloud music',
+		matches: ['*://*/apps/music/*'],
+		js: 'nextcloud-music.js',
+		id: 'nextcloud-music',
 	},
 	{
 		label: 'Digitally Imported',
@@ -312,7 +330,7 @@ export default <ConnectorMeta[]>[
 	},
 	{
 		label: 'Tidal',
-		matches: ['*://listen.tidalhifi.com/*', '*://listen.tidal.com/*'],
+		matches: ['*://tidal.com/*'],
 		js: 'tidal.js',
 		id: 'tidal',
 	},
@@ -509,17 +527,6 @@ export default <ConnectorMeta[]>[
 		matches: ['*://www.novoeradio.by/*'],
 		js: 'novoeradio.js',
 		id: 'novoeradio',
-	},
-	{
-		label: 'Яндекс.Радио',
-		matches: [
-			'*://radio.yandex.ru/*',
-			'*://radio.yandex.by/*',
-			'*://radio.yandex.kz/*',
-			'*://radio.yandex.ua/*',
-		],
-		js: 'yandex-music.js',
-		id: 'yandex-radio',
 	},
 	{
 		label: 'Radio Paradise',
@@ -1068,7 +1075,7 @@ export default <ConnectorMeta[]>[
 	},
 	{
 		label: 'WFMU',
-		matches: ['*://wfmu.org/*'],
+		matches: ['*://wfmu.org/*', '*://freeform.wfmu.org/*'],
 		js: 'wfmu.js',
 		id: 'wfmu',
 	},
@@ -1544,7 +1551,7 @@ export default <ConnectorMeta[]>[
 	},
 	{
 		label: 'swr3',
-		matches: ['*://www.swr3.de/*'],
+		matches: ['*://www.swr3.de/*', '*://www.swr.de/*'],
 		js: 'swr3.js',
 		id: 'swr3',
 	},
@@ -1742,6 +1749,11 @@ export default <ConnectorMeta[]>[
 		label: 'Navidrome',
 		js: 'navidrome.js',
 		id: 'navidrome',
+	},
+	{
+		label: 'LMS',
+		js: 'lms.js',
+		id: 'lms',
 	},
 	{
 		label: 'deep-cut.fm',
@@ -2605,5 +2617,95 @@ export default <ConnectorMeta[]>[
 		matches: ['*://suno.com/*'],
 		js: 'suno.js',
 		id: 'suno',
+	},
+	{
+		label: '[untitled]',
+		matches: ['*://untitled.stream/*'],
+		js: 'untitled.js',
+		id: '[untitled]',
+	},
+	{
+		label: 'DAB Music Player',
+		matches: ['*://dab.yeet.su/*', '*://dabmusic.xyz/*'],
+		js: 'dabmusic.js',
+		id: 'dabmusic',
+	},
+	{
+		label: 'GBS-FM',
+		matches: ['*://gbs.fm/*'],
+		js: 'gbs.fm.js',
+		id: 'gbs',
+	},
+	{
+		label: 'Yumi Co. Radio',
+		matches: ['*://yumicoradio.net/*'],
+		js: 'yumicoradio.js',
+		id: 'yumicoradio',
+	},
+	{
+		label: 'Kosmik Dstroyer',
+		matches: ['*://kosmik-dstroyer.top/*'],
+		js: 'kosmik-dstroyer.js',
+		id: 'kosmik-dstroyer',
+	},
+	{
+		label: 'LaTeX 4000',
+		matches: ['*://nonacademic.net/*'],
+		js: 'nonacademic.js',
+		id: 'nonacademic',
+	},
+	{
+		label: 'gravity.fm',
+		matches: ['*://gravity.fm/*'],
+		js: 'gravity.fm.js',
+		id: 'gravity',
+	},
+	{
+		label: 'Archaic Horizon',
+		matches: ['*://archaichorizon.com/*', '*://www.archaichorizon.com/*'],
+		js: 'archaichorizon.js',
+		id: 'archaichorizon',
+	},
+	{
+		label: 'Aonsoku',
+		matches: ['*://aonsoku.vercel.app/*'],
+		js: 'aonsoku.js',
+		id: 'aonsoku',
+	},
+	{
+		label: 'CREAMER NATION',
+		matches: ['*://creamernation.men/*'],
+		js: 'creamernation.js',
+		id: 'creamer-nation',
+	},
+	{
+		label: 'Feishin',
+		matches: ['*://feishin.vercel.app/*'],
+		js: 'feishin.js',
+		id: 'feishin',
+	},
+	{
+		label: 'Ampwall',
+		matches: ['*://ampwall.com/*'],
+		js: 'ampwall.js',
+		id: 'ampwall',
+	},
+	{
+		label: 'Monochrome',
+		matches: ['*://monochrome.prigoana.com/*', '*://monochrome.tf/*'],
+		js: 'monochrome.js',
+		id: 'monochrome',
+	},
+	{
+		label: 'WeeklyBeats',
+		matches: ['*://weeklybeats.com/*'],
+		js: 'weeklybeats.js',
+		id: 'weeklybeats',
+	},
+	{
+		label: 'XRaydio',
+		matches: ['*://xraydio.net/*'],
+		js: 'xraydio.js',
+		id: 'xraydio',
 	},
 ];
