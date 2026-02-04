@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Perform Crowdin source upload
         if: ${{ github.event_name == 'push' }}
@@ -26,6 +26,9 @@ jobs:
           upload_translations: false
           download_translations: false
           create_pull_request: false
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        env:
+          CROWDIN_PERSONAL_TOKEN: '${{ secrets.CROWDIN_PERSONAL_TOKEN }}'
 
       - name: Perform Crowdin translation download
         if: ${{ github.event_name != 'push' }}
@@ -37,6 +40,7 @@ jobs:
           create_pull_request: true
           pull_request_base_branch_name: 'master'
           pull_request_labels: 'patch-change, translations, maintenance'
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
         env:
           GITHUB_TOKEN: '${{ secrets.BOT_PAT }}'
           CROWDIN_PERSONAL_TOKEN: '${{ secrets.CROWDIN_PERSONAL_TOKEN }}'

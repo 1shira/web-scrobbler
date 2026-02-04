@@ -1,6 +1,6 @@
 {
   "name": "web-scrobbler",
-  "version": "3.18.0",
+  "version": "3.19.0",
   "author": "David Šabata <posta@davidsabata.cz>",
   "contributors": [
     "@mountainash (https://mountainash.id.au/)"
@@ -44,7 +44,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/imagemin": "9.0.1",
     "@types/imagemin-jpegtran": "5.0.4",
-    "@types/node": "24.5.2",
+    "@types/node": "24.10.0",
     "@types/react": "19.1.13",
     "@types/webextension-polyfill": "0.12.3",
     "@web-scrobbler/eslint-config": "4.0.0",
@@ -59,7 +59,7 @@
     "eslint-plugin-solid": "0.14.5",
     "eslint-plugin-tsdoc": "0.4.0",
     "fs-extra": "11.3.2",
-    "glob": "11.0.3",
+    "glob": "11.1.0",
     "imagemin": "9.0.1",
     "imagemin-jpegtran": "8.0.0",
     "imagemin-pngquant": "10.0.0",
@@ -68,7 +68,7 @@
     "remark": "15.0.1",
     "remark-cli": "12.0.1",
     "remark-preset-lint-recommended": "7.0.1",
-    "sass": "1.93.0",
+    "sass": "1.93.3",
     "solid-js": "1.9.9",
     "tsx": "4.20.6",
     "typescript": "5.9.2",

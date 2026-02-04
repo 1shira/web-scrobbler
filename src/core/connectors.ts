@@ -2708,4 +2708,16 @@ export default <ConnectorMeta[]>[
 		js: 'xraydio.js',
 		id: 'xraydio',
 	},
+	{
+		label: 'Cytu.be',
+		matches: ['*://cytu.be/r/*'],
+		js: 'cytu-be.js',
+		id: 'cytu-be',
+	},
+	{
+		label: 'Telegram Audio Player',
+		matches: ['*://teleplay.rv7.nl/*'],
+		js: 'teleplay.js',
+		id: 'teleplay',
+	},
 ];
